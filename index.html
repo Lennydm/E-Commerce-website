@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-Commerce</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .buttons button {
+            margin-top: 10px;
+        }
+
+        .cart-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            background-color: #2e04fe;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        #cart {
+            position: fixed;
+            top: 50px;
+            right: 10px;
+            width: 200px;
+            background-color: #2e04fe;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        #cart.visible {
+            display: block;
+        }
+
+        .remove-btn {
+            background-color: #fff;
+            color: #f00;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        #checkout-btn {
+            background-color: #00ff22;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        #checkout-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #total-price {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Willkommen in unserem Online-Shop!</h1>
+    <div class="container">
+        <!-- Bücher Kategorie -->
+        <div class="category">
+            <h1 class="category-title">Bücher</h1>
+            <div class="products">
+                <div class="product">
+                    <img src="Redwall.jpg" alt="Redwall Band 1" onclick="showImage('Redwall.jpg')">
+                    <div class="product-info">
+                        <h2>Redwall Band 1</h2>
+                        <p class="price">Preis: €11</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('Redwall Band 1', 11)">In den Warenkorb</button>
+                            <button onclick="buyNow('Redwall Band 1', 11)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="Welallbuch.jpg" alt="DK Wissen Weltall" onclick="showImage('Welallbuch.jpg')">
+                    <div class="product-info">
+                        <h2>DK Wissen Weltall</h2>
+                        <p class="price">Preis: €12</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('DK Wissen Weltall', 12)">In den Warenkorb</button>
+                            <button onclick="buyNow('DK Wissen Weltall', 12)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="Mensch.jpg" alt="DK Wissen Mensch" onclick="showImage('Mensch.jpg')">
+                    <div class="product-info">
+                        <h2>DK Wissen Mensch</h2>
+                        <p class="price">Preis: €12</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('DK Wissen Mensch', 12)">In den Warenkorb</button>
+                            <button onclick="buyNow('DK Wissen Mensch', 12)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Videospiele Kategorie -->
+        <div class="category">
+            <h1 class="category-title">Videospiele</h1>
+            <div class="products">
+                <!-- Produkt 1 -->
+                <div class="product">
+                    <img src="The Crew 2.jpg" alt="The Crew 2 PS4" onclick="showImage('The Crew 2.jpg')">
+                    <div class="product-info">
+                        <h2>The Crew 2 PS4</h2>
+                        <p class="price">Preis: €10</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('The Crew 2 PS4', 10)">In den Warenkorb</button>
+                            <button onclick="buyNow('The Crew 2 PS4', 10)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Produkt 2 -->
+                <div class="product">
+                    <img src="Need for Speed.jpg" alt="Need for Speed PS4" onclick="showImage('Need for Speed.jpg')">
+                    <div class="product-info">
+                        <h2>Need for Speed PS4</h2>
+                        <p class="price">Preis: €10</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('Need for Speed PS4', 10)">In den Warenkorb</button>
+                            <button onclick="buyNow('Need for Speed PS4', 10)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Produkt 3 -->
+                <div class="product">
+                    <img src="MInecraft.jpg" alt="Minecraft PS4" onclick="showImage('MInecraft.jpg')">
+                    <div class="product-info">
+                        <h2>Minecraft PS4</h2>
+                        <p class="price">Preis: €10</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('Minecraft PS4', 10)">In den Warenkorb</button>
+                            <button onclick="buyNow('Minecraft PS4', 10)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Produkt 4 -->
+                <div class="product">
+                    <img src="Lego Marvel.jpg" alt="Lego Marvel PS4" onclick="showImage('Lego Marvel.jpg')">
+                    <div class="product-info">
+                        <h2>Lego Marvel PS4</h2>
+                        <p class="price">Preis: €10</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('Lego Marvel PS4', 10)">In den Warenkorb</button>
+                            <button onclick="buyNow('Lego Marvel PS4', 10)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Elektronik Kategorie -->
+        <div class="category">
+            <h1 class="category-title">Elektronik</h1>
+            <div class="products">
+                <!-- Produkt 1 -->
+                <div class="product">
+                    <img src="JBL Charge 5.jpg" alt="JBL Charge 5" onclick="showImage('JBL Charge 5.jpg')">
+                    <div class="product-info">
+                        <h2>JBL Charge 5</h2>
+                        <p class="price">Preis: €250</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('JBL Charge 5', 250)">In den Warenkorb</button>
+                            <button onclick="buyNow('JBL Charge 5', 250)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Produkt 2 -->
+                <div class="product">
+                    <img src="Samsung TV.jpg" alt="Samsung TV" onclick="showImage('Samsung TV.jpg')">
+                    <div class="product-info">
+                        <h2>Samsung TV</h2>
+                        <p class="price">Preis: €750</p>
+                        <div class="buttons">
+                            <button onclick="addToCart('Samsung TV', 750)">In den Warenkorb</button>
+                            <button onclick="buyNow('Samsung TV', 750)">Kaufen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-icon" onclick="toggleCart()">Warenkorb</div>
+
+    <div id="cart">
+        <h2>Warenkorb</h2>
+        <ul id="cart-items"></ul>
+        <div id="total-price">Gesamtpreis: €0</div>
+        <button id="checkout-btn" disabled onclick="location.href='checkout.html'">Zur Kasse</button>
+    </div>
+
+    <div id="overlay" onclick="closeModal()"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+    </div>
+
+    <div id="product-modal"
+        style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color:#fff; border-radius:8px; padding:20px; z-index:1001;">
+        <img id="modal-image" src="" alt="Product Image" style="max-width:100%; max-height:100%;">
+        <button id="close-btn" onclick="closeModal()"
+            style="position:absolute; top:10px; right:10px; background-color:#ff6347; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:5px;">Schließen</button>
+    </div>
+
+
+    <script>
+        let cartItems = [];
+
+        function showImage(imgSrc) {
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = imgSrc;
+            document.getElementById('product-modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function addToCart(productName, price) {
+            cartItems.push({ name: productName, price: price });
+            updateCart();
+            updateCheckoutButton();
+            calculateTotalPrice(); // Also updates total displayed
+        }
+
+        function buyNow(productName, price) {
+            localStorage.setItem('cartItems', JSON.stringify([{ name: productName, price: price }]));
+            localStorage.setItem('totalPrice', price); // Store single product price
+            document.location.href = 'checkout.html';
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            cartList.innerHTML = '';
+            cartItems.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - €${item.price}`;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Entfernen';
+                removeBtn.className = 'remove-btn';
+                removeBtn.onclick = () => removeFromCart(index);
+                li.appendChild(removeBtn);
+                cartList.appendChild(li);
+            });
+            calculateTotalPrice(); // Recalculate price whenever cart updates
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCart();
+            updateCheckoutButton();
+            calculateTotalPrice();
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.classList.toggle('visible');
+        }
+
+        function updateCheckoutButton() {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            checkoutBtn.disabled = cartItems.length === 0;
+        }
+
+        function calculateTotalPrice() {
+            const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('total-price').textContent = `Gesamtpreis: €${total}`;
+            return total;
+        }
+
+
+
+        document.getElementById('checkout-btn').addEventListener('click', function () {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            localStorage.setItem('totalPrice', calculateTotalPrice());
+            window.location.href = 'checkout.html';
+        });
+    </script>
+</body>
+
+</html>
